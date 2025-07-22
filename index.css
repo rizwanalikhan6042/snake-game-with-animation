@@ -1,0 +1,94 @@
+/* style.css */
+
+/* Apply a dark background to the entire page and center the content */
+body {
+     background: url('snakeGameback.jpg') no-repeat center center fixed;
+  background-size: cover;      
+     background-repeat: no-repeat;
+  color: #fff;                    /* Keep text white for contrast */
+          /* Dark background for gaming feel */
+  color: #fff;                   /* White text for contrast */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern readable font */
+  text-align: center;            /* Center the text and elements */
+  margin: 0;                     /* Remove default margin */
+  padding: 20px;       
+  padding-top: 45px;  
+}
+
+/* Style for the main heading */
+h1 {
+  color: #00ffcc;                /* Bright cyan color for the title */
+  text-shadow: 2px 2px 5px #000; /* Slight glow effect */
+  margin-bottom: 10px;           /* Space below the heading */
+}
+
+.topBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Space between score and game over */
+  margin-bottom: 20px;
+}
+
+/* #scoreDisplay {
+  font-size: 1.2rem;
+  margin: 10px 40vw 20px 40vw;
+  color: #ffffff;
+  background: #222;
+  padding: 5px 15px;
+  border-radius: 8px;
+  border: 1px solid #00ffcc;
+} */
+ #scoreDisplay {
+  font-size: 1.2rem;
+  background: #222;
+  padding: 5px 15px;
+  border-radius: 8px;
+  border: 1px solid #00ffcc;
+  color: #ffffff;
+  white-space: nowrap;       /* prevent text from breaking into lines */
+  flex-shrink: 0;    
+         /* prevent shrinking */
+}
+#gameOver{
+    visibility: hidden;
+     font-size: 1.2rem;
+  background: #222;
+  padding: 5px 15px;
+  border-radius: 8px;
+  border: 1px solid #00ffcc;
+  color: #ffffff;
+  white-space: nowrap;       /* prevent text from breaking into lines */
+  flex-shrink: 0;    
+}
+
+#replayBtn {
+  visibility: hidden;  
+  margin: 10px auto;
+  padding: 8px 20px;
+  font-size: 16px;
+  background-color: #00ff88;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* Style the canvas where the game is rendered */
+canvas {
+   width: 90vmin;
+  height: 90vmin;
+  max-width: 700px;
+  max-height: 470px;
+  background-color: #000;
+  border: 4px solid #00ff88;
+  box-shadow: 0 0 20px #00ff88;
+  display: block;
+  margin: 20px auto;        /* Slightly rounded corners */
+}
+
+/* Style the control/instruction text below the canvas */
+p {
+  color: #aaa;                   /* Light gray color for instructions */
+  font-size: 16px;               /* Medium size font */
+  margin-top: -10px;             /* Pull it up closer to canvas */
+}
