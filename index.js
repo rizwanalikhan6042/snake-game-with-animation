@@ -37,12 +37,9 @@ if(e.key==="ArrowLeft"&&dir!=="RIGHT"){
 //main logic
 function drawGame(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let i=0;i<snake.length;i++){
-        ctx.fillStyle=i===0 ? "#00ff00" : "#007700";
-        ctx.fillRect(snake[i].x,snake[i].y,box,box);
-    }
-    ctx.fillStyle="red";
-    ctx.fillRect(snakeFood.x,snakeFood.y,box,box);
+   drawSnake()
+    drawFood()
+
     let headX=snake[0].x;
 let headY=snake[0].y;
 
@@ -82,6 +79,7 @@ snake.unshift(newHead);
 
 
 
+
 function collision(head,snakeBody){
 for(let i=0;i<snakeBody.length;i++){
     if(head.x===snakeBody[i].x && head.y===snakeBody[i].y){
@@ -109,7 +107,7 @@ let isPaused = false;
 const pauseBtn = document.getElementById("pauseBtn");
 pauseBtn.addEventListener("click", () => {
     isPaused = !isPaused;
-    if(score>0)
+    
     pauseBtn.textContent = isPaused ? "Resume" : "Pause";
 });
 
@@ -118,4 +116,33 @@ document.getElementById('replayBtn').addEventListener('click', function () {
   location.reload(); // Page reload karega => game restart ho jayega
 });
 
+function drawSnake() {
+    for (let i = 0; i < snake.length; i++) {
+        const part = snake[i];
+        const isHead = i === 0;
 
+        ctx.beginPath();
+        ctx.fillStyle = isHead ? "#00ffcc" : `hsl(${i * 15}, 80%, 50%)`;  // Gradient hues
+        ctx.shadowColor = isHead ? "#00ffff" : "#00ff66";
+        ctx.shadowBlur = isHead ? 10 : 5;
+
+        // Rounded corners for a smooth modern look
+        ctx.roundRect(part.x, part.y, box, box, 5);
+        ctx.fill();
+
+        ctx.shadowBlur = 0; // Reset
+    }
+}
+
+function drawFood() {
+    const glowSize = 5;
+    const pulse = Math.sin(Date.now() / 200) * 2 + 8; // animated pulse
+
+    ctx.beginPath();
+    ctx.arc(snakeFood.x + box / 2, snakeFood.y + box / 2, pulse, 0, 2 * Math.PI);
+    ctx.fillStyle = "#ff3399"; // bright pink/red
+    ctx.shadowColor = "#ff66cc"; // glowing pink shadow
+    ctx.shadowBlur = glowSize;
+    ctx.fill();
+    ctx.shadowBlur = 0; // reset after drawing
+}
