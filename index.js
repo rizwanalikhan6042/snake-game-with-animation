@@ -4,7 +4,10 @@ const scoreShow=document.getElementById("scoreDisplay");
 const box=20;
 let score=0;
 let dir="RIGHT";
-
+let baseSpeed = 150;
+let minSpeed = 50;
+let speedIncRate = 1;
+let gameSpeed = baseSpeed;
 
 let snake=[];
 
@@ -51,6 +54,8 @@ else if(dir==="DOWN") headY+=box;
 if(headX === snakeFood.x && headY === snakeFood.y){    
   score+=5;
   scoreShow.textContent="Score "+score;
+  gameSpeed = Math.max(minSpeed, baseSpeed - score * speedIncRate);
+  console.log(gameSpeed)
   snakeFood={
     x:Math.floor(Math.random()*20)*box,
     y:Math.floor(Math.random()*20)*box
@@ -86,7 +91,28 @@ for(let i=0;i<snakeBody.length;i++){
 
 return false;
 }
-setInterval(drawGame,100);
+let lastFrameTime = 0;
+//  gameSpeed = 200; // speed in milliseconds (100ms per frame)
+
+function gameLoop(currentTime) {
+    if (!isPaused&&currentTime - lastFrameTime >= gameSpeed) {
+        drawGame();
+        lastFrameTime = currentTime;
+    }
+    requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop); // Starts the game loop
+let isPaused = false;
+
+// Pause button logic
+const pauseBtn = document.getElementById("pauseBtn");
+pauseBtn.addEventListener("click", () => {
+    isPaused = !isPaused;
+    if(score>0)
+    pauseBtn.textContent = isPaused ? "Resume" : "Pause";
+});
+
 
 document.getElementById('replayBtn').addEventListener('click', function () {
   location.reload(); // Page reload karega => game restart ho jayega
